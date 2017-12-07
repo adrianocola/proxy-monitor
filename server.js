@@ -11,10 +11,13 @@ http.createServer(function (req, res) {
     }
     if(!last_check){
         res.write('ERROR - INITIAL');
+        res.statusCode = 503;
     }else if(Date.now() - last_check.getTime() > check_interval){
         res.write(`ERROR - ${last_check}`);
+        res.statusCode = 503;
     }else{
         res.write(`OK - ${last_check}`);
+        res.statusCode = 200;
     }
     res.end();
 }).listen(secret.port);
