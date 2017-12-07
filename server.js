@@ -10,15 +10,14 @@ http.createServer(function (req, res) {
         last_check = new Date();
     }
     if(!last_check){
-        res.write('ERROR - INITIAL');
         res.statusCode = 503;
+        res.end('ERROR - INITIAL');
     }else if(Date.now() - last_check.getTime() > check_interval){
-        res.write(`ERROR - ${last_check}`);
         res.statusCode = 503;
+        res.end(`ERROR - ${last_check}`);
     }else{
-        res.write(`OK - ${last_check}`);
         res.statusCode = 200;
+        res.end(`OK - ${last_check}`);
     }
-    res.end();
 }).listen(secret.port);
 console.log(`Listening to port ${secret.port}`);
